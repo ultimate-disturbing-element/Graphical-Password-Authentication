@@ -276,5 +276,27 @@ button.ghost {
     transform: translateY(20%);
 }
 
-/* https://Github.com/YasinDehfuli
-	 https://Codepen.io/YasinDehfuli */
+
+.passimg{
+    background-color: #eeeeee;
+    /* border: 1px solid rgba(0, 0, 0, 0.8); */
+    padding: 4px;
+    /* margin: 10px; */
+    text-align: center;
+}
+
+.password{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    background-color: #a03333;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.patimg{
+    border: 2px solid #eeeeee;
+}
+
+.patimg:hover{
+    border: 2px solid black;
+}
