@@ -3,8 +3,6 @@ import bodyParser from "body-parser"
 import cors from "cors"
 import mongoose from "mongoose"
 import dotenv from 'dotenv';
-import swaggerUi from "swagger-ui-express"
-import fs from"fs/promises"
 
 const app = express()
 app.use(bodyParser.json())
