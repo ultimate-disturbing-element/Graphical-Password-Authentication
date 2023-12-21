@@ -2,11 +2,13 @@ import express from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
 import mongoose from "mongoose"
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
+import router from './routes/routes.js';
 
 const app = express()
 app.use(bodyParser.json())
 app.use(cors())
+app.use('/api', router)
 dotenv.config();
 
 mongoose.set('strictQuery', true)
