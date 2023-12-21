@@ -1,21 +1,25 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import "./AuthForm.css";
 import { ImageJson } from "./ImageJson";
 
 const AuthForm = () => {
   const containerRef = useRef(null);
 
-  const handleSignUpClick = () =>
-    containerRef.current.classList.add("right-panel-active");
-  const handleSignInClick = () =>
-    containerRef.current.classList.remove("right-panel-active");
+  const handleSignUpClick = () => (
+    containerRef.current.classList.add("right-panel-active"),
+    setSelectedImage([])
+  )
+  const handleSignInClick = () => (
+    containerRef.current.classList.remove("right-panel-active"),
+    setSelectedImage([])
+  )
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
+  const [selectedImage, setSelectedImage] = useState([]);
+  useEffect(() => {
+    console.log(selectedImage);
+  }, [selectedImage]);
   const handleImageClick = (id) => {
-    setSelectedImage(id);
-    console.log(id);
-    // Perform any other actions you want when an image is clicked
+    setSelectedImage((prevSelectedImage) => [...prevSelectedImage, id]);
   };
   return (
     <body>
