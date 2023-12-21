@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./AuthForm.css";
 import { ImageJson } from "./ImageJson";
 
@@ -7,20 +7,30 @@ const AuthForm = () => {
 
   const handleSignUpClick = () => (
     containerRef.current.classList.add("right-panel-active"),
-    setSelectedImage([])
-  )
+    setSelectedImages([])
+  );
   const handleSignInClick = () => (
     containerRef.current.classList.remove("right-panel-active"),
-    setSelectedImage([])
-  )
+    setSelectedImages([])
+  );
 
-  const [selectedImage, setSelectedImage] = useState([]);
-  useEffect(() => {
-    console.log(selectedImage);
-  }, [selectedImage]);
+  const [selectedImages, setSelectedImages] = useState([]);
   const handleImageClick = (id) => {
-    setSelectedImage((prevSelectedImage) => [...prevSelectedImage, id]);
+    if (selectedImages.length < 5) {
+      setSelectedImages((prevSelectedImages) => [...prevSelectedImages, id]);
+    }
   };
+
+  const removeImage = (id) => {
+    setSelectedImages((prevSelectedImages) =>
+      prevSelectedImages.filter((imageId) => imageId !== id)
+    );
+  };
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
+
   return (
     <body>
       {/* Animated Wave Background */}
@@ -41,23 +51,40 @@ const AuthForm = () => {
               <label>
                 <input type="email" placeholder="Email" />
               </label>
-              <div className="password">
-              {ImageJson.map((image, index) => (
-                <div
-                  key={`s${index + 1}`}
-                  className={`passimg ${
-                    selectedImage === `s${index + 1}` ? "selected" : ""
-                  }`}
-                  onClick={() => handleImageClick(image.value)}
-                >
+              {/* Selected Image */}
+              <div className="selected-image-segment">
+                {selectedImages.length > 0 && <span>Selected Images:</span>}
+                <br />
+                {selectedImages.map((selectedImage, index) => (
                   <img
-                    src={image.image}
-                    alt={`Image ${index + 1}`}
-                    className="patimg"
+                    key={index}
+                    src={
+                      ImageJson.find((image) => image.value === selectedImage)
+                        ?.image
+                    }
+                    alt={`Selected Image`}
+                    onClick={() => removeImage(selectedImage)}
                   />
-                </div>
-              ))}
+                ))}
               </div>
+              <div className="password">
+                {ImageJson.map((image, index) => (
+                  <div
+                    key={`s${index + 1}`}
+                    className={`passimg ${
+                      selectedImages === `s${index + 1}` ? "selected" : ""
+                    }`}
+                    onClick={() => handleImageClick(image.value)}
+                  >
+                    <img
+                      src={image.image}
+                      alt={`Image ${index + 1}`}
+                      className="patimg"
+                    />
+                  </div>
+                ))}
+              </div>
+              <span style={{color:'red',margin:"5px",marginLeft:"-50px"}}>Select your Graphical password*</span>
               <button style={{ marginTop: "9px" }}>Sign Up</button>
             </form>
           </div>
@@ -67,23 +94,40 @@ const AuthForm = () => {
               <label>
                 <input type="email" placeholder="Email" />
               </label>
-              <div className="password">
-              {ImageJson.map((image, index) => (
-                <div
-                  key={`s${index + 1}`}
-                  className={`passimg ${
-                    selectedImage === `s${index + 1}` ? "selected" : ""
-                  }`}
-                  onClick={() => handleImageClick(image.value)}
-                >
+              {/* Selected Image */}
+              <div className="selected-image-segment">
+                {selectedImages.length > 0 && <span>Selected Images:</span>}
+                <br />
+                {selectedImages.map((selectedImage, index) => (
                   <img
-                    src={image.image}
-                    alt={`Image ${index + 1}`}
-                    className="patimg"
+                    key={index}
+                    src={
+                      ImageJson.find((image) => image.value === selectedImage)
+                        ?.image
+                    }
+                    alt={`Selected Image`}
+                    onClick={() => removeImage(selectedImage)}
                   />
-                </div>
-              ))}
+                ))}
               </div>
+              <div className="password">
+                {ImageJson.map((image, index) => (
+                  <div
+                    key={`s${index + 1}`}
+                    className={`passimg ${
+                      selectedImages === `s${index + 1}` ? "selected" : ""
+                    }`}
+                    onClick={() => handleImageClick(image.value)}
+                  >
+                    <img
+                      src={image.image}
+                      alt={`Image ${index + 1}`}
+                      className="patimg"
+                    />
+                  </div>
+                ))}
+              </div>
+              <span style={{color:'red',margin:'5px',marginLeft:"-50px"}}>Select your Graphical password*</span>
               <a href="#">Forgot your password?</a>
               <button>Sign In</button>
             </form>
