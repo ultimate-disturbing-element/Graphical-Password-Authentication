@@ -1,9 +1,25 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./AuthForm.css";
 import { ImageJson } from "./ImageJson";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AuthForm = () => {
+  const baseURL = `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api`;
+
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+  });
+
+  const pass = selectedImages.join("");
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    console.log(selectedImages);
+  }, [selectedImages]);
 
   const handleSignUpClick = () => (
     containerRef.current.classList.add("right-panel-active"),
@@ -14,7 +30,75 @@ const AuthForm = () => {
     setSelectedImages([])
   );
 
-  const [selectedImages, setSelectedImages] = useState([]);
+  const handleSignIn = async (e) => {
+    
+    e.preventDefault();
+    if (!userDetails.email) {
+      toast.error("Please provide valid email address.", { autoClose: 3000 });
+      return;
+    }
+    // Validate password
+    if (!pass || pass.length < 5) {
+      toast.error("Password must be at least 5 characters long.", {
+        autoClose: 3000,
+      });
+      return;
+    }
+    try{
+    await axios
+      .get(baseURL + "/signIn/" + userDetails.email + "/" + pass)
+      .then((response) => {
+        // Show Toast Message what we get in Response
+        toast.info(response.data.message);
+      });
+    }catch(error){
+      toast.error("Error During SignIn.", { autoClose: 3000 });
+    }
+  };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    // Validate user details
+    if (!userDetails || !userDetails.name || !userDetails.email) {
+      toast.error("Please provide valid user details.", { autoClose: 3000 });
+      return;
+    }
+
+    // Validate password
+    if (!pass || pass.length < 5) {
+      toast.error("Password must be at least 5 characters long.", {
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    try {
+      await axios
+        .post(baseURL + "/signup", {
+          name: userDetails.name,
+          email: userDetails.email,
+          password: pass,
+        })
+        .then((response) => {
+          // Show Toast Message SignUp Successfully
+          toast.success("successfully Signed Up", { autoClose: 3000 });
+        });
+    } catch (error) {
+      console.error("Error during signup:", error);
+      toast.error("Signup failed. Please try again.", { autoClose: 3000 });
+    }
+  };
+
+  const handleUserDetails = (e) => {
+    const { value, name } = e.target;
+    setUserDetails((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
   const handleImageClick = (id) => {
     if (selectedImages.length < 5) {
       setSelectedImages((prevSelectedImages) => [...prevSelectedImages, id]);
@@ -27,13 +111,10 @@ const AuthForm = () => {
     );
   };
 
-  useEffect(() => {
-    console.log(selectedImages);
-  }, [selectedImages]);
-
   return (
-    <body>
+    <>
       {/* Animated Wave Background */}
+      <ToastContainer />
       <div className="ocean">
         <div className="wave"></div>
         <div className="wave"></div>
@@ -46,10 +127,22 @@ const AuthForm = () => {
             <form action="#">
               <h1>Sign Up</h1>
               <label>
-                <input type="text" placeholder="Name" />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={userDetails.name}
+                  onChange={handleUserDetails}
+                />
               </label>
               <label>
-                <input type="email" placeholder="Email" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={userDetails.email}
+                  onChange={handleUserDetails}
+                />
               </label>
               {/* Selected Image */}
               <div className="selected-image-segment">
@@ -84,15 +177,27 @@ const AuthForm = () => {
                   </div>
                 ))}
               </div>
-              <span style={{color:'red',margin:"5px",marginLeft:"-50px"}}>Select your Graphical password*</span>
-              <button style={{ marginTop: "9px" }}>Sign Up</button>
+              <span
+                style={{ color: "red", margin: "5px", marginLeft: "-45px" }}
+              >
+                Select your Graphical password*
+              </span>
+              <button style={{ marginTop: "9px" }} onClick={handleSignUp}>
+                Sign Up
+              </button>
             </form>
           </div>
           <div className="form-container sign-in-container">
             <form action="#">
               <h1>Sign in</h1>
               <label>
-                <input type="email" placeholder="Email" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={userDetails.email}
+                  onChange={handleUserDetails}
+                />
               </label>
               {/* Selected Image */}
               <div className="selected-image-segment">
@@ -127,9 +232,13 @@ const AuthForm = () => {
                   </div>
                 ))}
               </div>
-              <span style={{color:'red',margin:'5px',marginLeft:"-50px"}}>Select your Graphical password*</span>
+              <span
+                style={{ color: "red", margin: "5px", marginLeft: "-45px" }}
+              >
+                Select your Graphical password*
+              </span>
               <a href="#">Forgot your password?</a>
-              <button>Sign In</button>
+              <button onClick={handleSignIn}>Sign In</button>
             </form>
           </div>
           <div className="overlay-container">
@@ -160,7 +269,7 @@ const AuthForm = () => {
           </div>
         </div>
       </section>
-    </body>
+    </>
   );
 };
 
