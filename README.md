@@ -6,6 +6,11 @@
 
 ![Capture2](https://github.com/ultimate-disturbing-element/Graphical-Password-Authentication/assets/42346859/76ca0036-0224-4571-9cff-6770025dc7e8)
 
+https://github.com/ultimate-disturbing-element/Graphical-Password-Authenticator/assets/42346859/5c5bb2d9-a27a-483f-bcb5-5c1b40d6919a
+
+https://github.com/ultimate-disturbing-element/Graphical-Password-Authenticator/assets/42346859/912eaa04-b758-4c8a-a5c4-3ae487a8dfd3
+
+
 ## Integration with MERN Technology:
 
 ### 1) MongoDB (M):
