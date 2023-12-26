@@ -2,9 +2,9 @@
 
 #### In the rapidly evolving landscape of cybersecurity, traditional alphanumeric passwords are proving to be increasingly susceptible to attacks. Graphical Password Authentication (GPA) emerges as a robust alternative, leveraging images and graphical elements to enhance security. within the MERN (MongoDB, Express.js, React.js, Node.js) technology stack to create a powerful and secure authentication system. Graphical Password Authentication involves the use of images or graphical elements as a means of user authentication. Instead of typing a password, users select specific images or draw patterns to gain access. This method not only provides an additional layer of security but also offers a more intuitive and user-friendly experience.
 
-![Capture](https://github.com/ultimate-disturbing-element/Graphical-Password-Authentication/assets/42346859/0f136a30-6e5c-4c3b-a2ae-12d04c7938af)
+<img src="https://github.com/ultimate-disturbing-element/Graphical-Password-Authentication/assets/42346859/0f136a30-6e5c-4c3b-a2ae-12d04c7938af" alt="Capture" width="46%" />
 
-![Capture2](https://github.com/ultimate-disturbing-element/Graphical-Password-Authentication/assets/42346859/76ca0036-0224-4571-9cff-6770025dc7e8)
+<img src="https://github.com/ultimate-disturbing-element/Graphical-Password-Authentication/assets/42346859/76ca0036-0224-4571-9cff-6770025dc7e8" alt="Capture2" width="46%" />
 
 https://github.com/ultimate-disturbing-element/Graphical-Password-Authenticator/assets/42346859/5c5bb2d9-a27a-483f-bcb5-5c1b40d6919a
 
