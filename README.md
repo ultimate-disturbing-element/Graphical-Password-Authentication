@@ -39,7 +39,7 @@ git clone --depth 1 https://github.com/<your_name>/Graphical-Password-Authentica
 **3.** Navigate to the project directory :file_folder: .
 
 ```
-cd Open-Source-Milap
+cd Graphical-Password-Authenticator
 
 ```
 
